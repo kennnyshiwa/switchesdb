@@ -2,6 +2,7 @@
   (:require [switchesdb.parser.bluepylons :as bluepylons]
             [switchesdb.parser.haata :as haata]
             [switchesdb.parser.theremingoat :as theremingoat]
+            [switchesdb.parser.buddyog :as buddyog]
             [babashka.fs :as fs]
             [switchesdb.shared :refer [file-postfix]]))
 
@@ -13,7 +14,9 @@
    :haata {:author "HaaTa"
            :url "https://plot.ly/~haata"}
    :goat {:author "ThereminGoat"
-          :url "https://github.com/ThereminGoat/force-curves"}})
+          :url "https://github.com/ThereminGoat/force-curves"}
+   :buddyog {:author "BuddyOG"
+             :url "https://github.com/BuddyOG/topre-force-curves"}})
 
 (defn spit-logs [out-file f]
   (let [logs (java.io.StringWriter.)]
@@ -35,11 +38,15 @@
                                 #(haata/parse target-dir))
         _ (println "Parsing" (get-in sources [:goat :author]) "data")
         goat-report (spit-logs (fs/file target-dir "goat.txt")
-                               #(theremingoat/parse target-dir))]
+                               #(theremingoat/parse target-dir))
+        _ (println "Parsing" (get-in sources [:buddyog :author]) "data")
+        buddyog-report (spit-logs (fs/file target-dir "buddyog.txt")
+                                  #(buddyog/parse target-dir))]
     (println "Done parsing!")
     {:pylon pylon-report
      :haata haata-report
-     :goat goat-report}))
+     :goat goat-report
+     :buddyog buddyog-report}))
 
 (defn scan-switches [source]
   (into {} (map (fn [filepath]
@@ -47,13 +54,14 @@
                    {:source source}])
                 (fs/glob target-dir
                          (str \* (file-postfix source))))))
-  
+
 (defn -main []
   (let [reports (parse-all)
         _ (println "Generating metadata")
         switches (merge (scan-switches :pylon)
                         (scan-switches :haata)
-                        (scan-switches :goat))]
+                        (scan-switches :goat)
+                        (scan-switches :buddyog))]
     (spit (fs/file target-dir "metadata.edn")
           (pr-str {:date (java.util.Date.)
                    :sources sources
