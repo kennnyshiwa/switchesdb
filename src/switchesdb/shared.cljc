@@ -3,7 +3,8 @@
 (def postfixes
   {:pylon "BP"
    :haata "HT"
-   :goat "TG"})
+   :goat "TG"
+   :buddyog "BO"})
 
 (defn file-postfix [source]
   (assert (contains? postfixes source))
