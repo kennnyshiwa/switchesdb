@@ -4,3 +4,6 @@
 [submodule "resources/bluepylons"]
 	path = resources/bluepylons
 	url = https://github.com/bluepylons/Open-Switch-Curve-Meter.git
+[submodule "resources/buddyog"]
+	path = resources/buddyog
+	url = https://github.com/BuddyOG/topre-force-curves.git
