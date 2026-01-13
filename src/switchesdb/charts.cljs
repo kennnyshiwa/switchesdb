@@ -22,7 +22,7 @@
    [{:filter {:field "displacement"
               :range [0 nil]}}
     {:filter {:field "force"
-              :range [0 120]}}
+              :range [0 250]}}
     {:calculate (str "'" display-name "'") :as "Switch"}
     {:calculate (str "datum.stroke == 'up' ? '" switch-name "up' : '" switch-name "'") :as "ColorDomain"}
     {:calculate (str "'" (:author source) "'") :as "Source"}]
@@ -46,8 +46,8 @@
                         & {:keys [hide-upstroke?]}]
   (let [map-clean #(map (partial utils/clean-switch-name+source sources) %)]
     {:$schema "https://vega.github.io/schema/vega-lite/v5.json"
-     :width "container"
-     :height 300
+     :width "1000"
+     :height 500
      :autosize {:type "fit-x"
                 :contains "padding"}
      :encoding {:color {:title ""

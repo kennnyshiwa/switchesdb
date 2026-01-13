@@ -65,14 +65,18 @@ button {
 }
 
 .side-panel {
-    grid-column: 1;
-    background-color: var(--bg-accent-color);
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-    display: grid;
-    grid-template-rows: 2em 1.5em auto 1em;
-    height: calc(100vh - 1em);
-    padding: 0.5em 0 0.5em 0.5em;
-    z-index: 1;
+      grid-column: 1;
+      background-color: var(--bg-accent-color);
+      box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+      display: grid;
+      grid-template-rows: 2em 1.5em auto 1em;
+      height: calc(100vh - 1em);
+      padding: 0.5em 0 0.5em 0.5em;
+      z-index: 1;
+      resize: horizontal;
+      overflow: auto;
+      min-width: 15em;
+      max-width: 40em;
 }
 
 .side-title {
